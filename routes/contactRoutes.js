@@ -1,7 +1,9 @@
 const express = require('express');
 const router = express.Router();
 const { getContacts, getContactById, createContact, updateContact, deleteContact } = require('../controllers/contactController')
+const validateToken = require('../middlewares/validateTokenHandler')
 
+router.use(validateToken)
 // Merging all the same routes
 router.route('/').get(getContacts).post(createContact);
 // router.route('/').post(createContact);

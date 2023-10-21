@@ -5,7 +5,7 @@ const User = require('../models/userModel')
 
 /*
 @desc Register a user
-@route GET /api/user/register
+@route GET /api/users/register
 @access public
 */
 const registerUser = asyncHandler(async (req, res) => {
@@ -41,7 +41,7 @@ const registerUser = asyncHandler(async (req, res) => {
 
 /*
 @desc Login user
-@route GET /api/user/login
+@route POST /api/users/login
 @access public
 */
 const loginUser = asyncHandler(async (req, res) => {
@@ -63,7 +63,7 @@ const loginUser = asyncHandler(async (req, res) => {
                 },
             },
             process.env.ACCESS_TOKEN_SECRET,
-            {expiresIn:'1m'},
+            {expiresIn:'15m'},
         )
         res.status(200).json({ accessToken })
     }else{
@@ -76,17 +76,16 @@ const loginUser = asyncHandler(async (req, res) => {
 
 /*
 @desc Current user info
-@route GET /api/user/curent
+@route GET /api/users/current
 @access private
 */
-const currentUser = asyncHandler(async (req, res) => {
-    
-    res.json({ message: 'Current user info' });
+const currentUser = asyncHandler(async (req, res) => {   
+    res.json(req.user);
 });
 
 /*
 @desc Logout user
-@route GET /api/user/logout
+@route GET /api/users/logout
 @access public
 */
 const logoutUser = asyncHandler(async (req, res) => {
